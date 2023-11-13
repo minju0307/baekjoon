@@ -12,16 +12,15 @@ def merge_sort(arr, low, high, n, k):
     return  # base case
 
   mid = (low + high) // 2
-
   merge_sort(arr, low, mid, n, k)  ## 앞부분 (재귀적으로 들어옴)
   merge_sort(arr, mid + 1, high, n, k)  ## 뒷부분 (재귀적으로 들어옴)
 
-  if high-low < n//k :
-    sorted_array = merge(arr, low, high) ## 계속 merge 할 떄까지 진행
+  if high - low < n // k:
+    sorted_array = merge(arr, low, high)  ## 계속 merge 할 떄까지 진행
   else:
-    sorted_array = arr ## 아닌 경우 더이상 진행하지 않기 
+    sorted_array = arr  ## 아닌 경우 더이상 진행하지 않기
 
-  ## 재귀적으로 들어가는 부분을 확인하기 위해서 찍어보기
+  # 재귀적으로 들어가는 부분을 확인하기 위해서 찍어보기
   # print("***")
   # print(f"input : {arr, low, high, n, k}")
   # print(sorted_array)
@@ -58,5 +57,7 @@ def merge(arr, low, high):
 
   return arr
 
-
-print(merge_sort(array, 0, N - 1, N, K))
+## 출력 
+answers = merge_sort(array, 0, N - 1, N, K)
+for i in answers:
+  print(i, end=' ')
