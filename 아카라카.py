@@ -7,7 +7,7 @@ if len(S) == 1:
 
 else:
   prefix = S[:len(S) // 2]
-  suffix = S[ (len(S) // 2 + 1 ) :]
+  suffix = S[len(S) // 2:] if len(S) % 2 == 0 else S[len(S) // 2 + 1:]
 
   if S == S[::-1] and prefix == prefix [::-1] and suffix == suffix [::-1] :
     print('AKARAKA')
