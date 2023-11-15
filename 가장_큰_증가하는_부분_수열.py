@@ -9,16 +9,18 @@ hap_dp = [0] * 1001
 hap_dp[0] = 0
 
 ## O(n^2) 알고리즘으로 몇개가 증가하고 있는지 확인하고 그 합을 저장하는 DP 테이블 정의하기
-for idx, value in enumerate(array):
-  print(value)
-  max_hap = 0
-  for previous_value in array[:idx]:
-    if previous_value < value:
-      print(max_hap)
-      max_hap = max(max_hap, previous_value)
-  hap_dp[idx] = max_hap + value
-  print()
+for idx, value in enumerate(array[1:], start=1):
+  hap_dp[idx] = value
+  max_hap = value
+  # print(f"**{value}**")
 
-print(array)
-print(hap_dp[:len(array)])
+  for iidx, previous_value in enumerate(array[:idx]):
+    if previous_value < value:
+      max_hap = max(max_hap, hap_dp[iidx] + value)
+      # print(max_hap)
+      hap_dp[idx] = max_hap
+  # print()
+
+# print(array)
+# print(hap_dp[:len(array)])
 print(max(hap_dp))
