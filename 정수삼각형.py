@@ -4,20 +4,26 @@ n = int(sys.stdin.readline().strip())
 triangles = []
 triangles.append([0])
 for i in range(n):
-  triangles.append(list(map(int,sys.stdin.readline().strip().split())))
+  triangles.append(list(map(int, sys.stdin.readline().strip().split())))
+
+## dp 테이블 = 삼각형 모양으로 현재까지의 최댓값이 무엇인지 담을 수 있도록 만들기
+dp = [[0] * i for i in range(len(triangles))]
+dp[0] = [0]
 
 # print(triangles)
-dp = [0] * 501
-dp[1] = triangles[1][0]
+# print(dp)
 
-for i in range(2, n + 1):
+for i in range(1, n + 1):
+  # print(f"***{i}***")
+  ## dp 테이블에 저장하기
+  for idx, value in enumerate(triangles[i]):
+    if idx == 0:
+      dp[i][idx] = dp[i - 1][idx] + value
+    elif idx == len(triangles[i]) - 1:
+      dp[i][idx] = dp[i - 1][idx - 1] + value
+    else:
+      dp[i][idx] = max(dp[i - 1][idx - 1] + value, dp[i - 1][idx] + value)
 
-  ## 계산하기 편하도록 리스트를 조정하기
-  triangles[i].insert(0, 0)
-  for j in range(n - i):
-    triangles[i].append(0)
+  # print(dp)
 
-  ## 현재 level에서 모든 경우의 수를 합한 것을 저장하여 최상의 조합이 무엇인지 찾기
-
-print(triangles)
-print(dp[:n])
+print(max(dp[-1]))
