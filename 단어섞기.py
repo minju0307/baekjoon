@@ -14,22 +14,27 @@ for idx, (w1, w2, w3) in enumerate(word_list):
   # print(f"***{w3}***")
   for c in w3:
     # print(c)
-    ## 만약 w1와 w2의 현재 index의 단어가 같으면, index가 더 작은 쪽에 넘겨준다.
+    ## 만약 w1와 w2의 현재 index의 단어가 같으면
     if w1_index < len(w1) and w2_index < len(
         w2) and w1[w1_index] == w2[w2_index]:
-      if w1_index < w2_index:
+      ## index가 더 적은 쪽에 넣어준다. 
+      if w1_index <= w2_index:
         if w1_index < len(w1) and c == w1[w1_index]:
           w1_index += 1
+          continue
         elif w2_index < len(w2) and c == w2[w2_index]:
           w2_index += 1
+          continue
         else:
           answer = 'no'
           break
       else:
         if w2_index < len(w2) and c == w2[w2_index]:
           w2_index += 1
+          continue
         elif w1_index < len(w1) and c == w1[w1_index]:
           w1_index += 1
+          continue
         else:
           answer = 'no'
           break
@@ -37,8 +42,10 @@ for idx, (w1, w2, w3) in enumerate(word_list):
     else:
       if w1_index < len(w1) and c == w1[w1_index]:
         w1_index += 1
+        continue
       elif w2_index < len(w2) and c == w2[w2_index]:
         w2_index += 1
+        continue
       else:
         answer = 'no'
         break
