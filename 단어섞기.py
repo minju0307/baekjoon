@@ -11,16 +11,38 @@ for idx, (w1, w2, w3) in enumerate(word_list):
   answer = 'yes'
   ## w3에 있는 단어들을 차례대로 살피면서
   ## w1나 w2의 단어들이 순차적으로 올 수 있는지 확인하기
-  print(f"***{w3}***")
+  # print(f"***{w3}***")
   for c in w3:
-    print(c)
-    if w1_index < len(w1) and c == w1[w1_index]:
-      w1_index += 1
-    elif w2_index < len(w2) and c == w2[w2_index]:
-      w2_index += 1
+    # print(c)
+    ## 만약 w1와 w2의 현재 index의 단어가 같으면, index가 더 작은 쪽에 넘겨준다.
+    if w1_index < len(w1) and w2_index < len(
+        w2) and w1[w1_index] == w2[w2_index]:
+      if w1_index < w2_index:
+        if w1_index < len(w1) and c == w1[w1_index]:
+          w1_index += 1
+        elif w2_index < len(w2) and c == w2[w2_index]:
+          w2_index += 1
+        else:
+          answer = 'no'
+          break
+      else:
+        if w2_index < len(w2) and c == w2[w2_index]:
+          w2_index += 1
+        elif w1_index < len(w1) and c == w1[w1_index]:
+          w1_index += 1
+        else:
+          answer = 'no'
+          break
+    ## 단어가 겹치지 않을 때는 순차적으로 w1, w2에 들어있는지 확인한다.
     else:
-      answer = 'no'
-    print(answer)
-  print()
+      if w1_index < len(w1) and c == w1[w1_index]:
+        w1_index += 1
+      elif w2_index < len(w2) and c == w2[w2_index]:
+        w2_index += 1
+      else:
+        answer = 'no'
+        break
+  #   print(answer)
+  # print()
 
-  print(f'Data set {idx}: {answer}')
+  print(f'Data set {idx+1}: {answer}')
