@@ -5,25 +5,33 @@ input = sys.stdin.readline
 
 
 def check(s, l):
-  first = [len(i) for i in s]
+  first = [len(i) for i in s] + [len(l)]
   q = deque([first])
-
-  for word in l[::-1]:  ## len(l) 만큼만 확인하기
-    print(word)
+  count = 0
+  while q:  ## len(l) 만큼만 확인하기
     idx_list = q.popleft()
-    print(idx_list)
+
+    if idx_list[-1] == 0:
+      return True
+    if count == len(l):
+      return False
+
+    word = l[idx_list[-1] - 1]
+    # print(word)
+    # print(idx_list)
     current = []
-    for s_idx, w_idx in enumerate(idx_list):
+    last = idx_list[-1]
+    for s_idx, w_idx in enumerate(idx_list[:-1]):
       if w_idx - 1 < len(s[s_idx]) and word == s[s_idx][w_idx - 1]:
         current.append(w_idx - 1)
+        last = idx_list[-1] - 1
       else:
         current.append(w_idx)
 
-    print(current)
+    count += 1
+    current.append(last)
+    # print(current)
     q.append(current)
-
-  last = q.popleft()
-  return all(count == 0 for count in last)
 
 
 n = int(input().strip())
