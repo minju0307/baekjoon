@@ -1,9 +1,9 @@
 import sys
 
-
 def computation(m1, m2):
   ## computation이 가능한지 확인해야 함
   ## 안 되면 error 출력
+
   if m1[1] != m2[0]:
     return (None, None)
 
@@ -14,6 +14,7 @@ def computation(m1, m2):
 
 
 def check(matrices, line):
+  # print(line)
   stack = []
   count = 0
 
@@ -28,16 +29,21 @@ def check(matrices, line):
     else:
       stack.append(matrices[c])
 
+    # print("stack:", stack)
+
     ## ) 를 만났을 때는 pop
     if c == ")":
       metrix = []
-      current = None
+      current = c
 
       ## (을 만나기 전까지는 꼭 두 개의 행렬이 들어간다.
       while current != "(":
+        # print("current:", current)
+        # print("metrix:", metrix)
+        # print(stack)
         current = stack.pop()
-        if c != "(" or c != ")":
-          metrix.append(c)
+        if type(current) == tuple:
+          metrix.append(current)
 
       local_count, shape = computation(metrix[1], metrix[0])
       if not local_count:
@@ -57,6 +63,13 @@ for _i in range(N):
   name, m, n = (input().strip().split())
   matrices[name] = (int(m), int(n))
 
+lines = []
 while True:
-  result = check(matrices, input().strip())
-  print(result)
+  line = input().strip()
+  if line:
+    lines.append(line)
+  else:
+    break
+
+for line in lines:
+  print(check(matrices, line))
