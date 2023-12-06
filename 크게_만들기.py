@@ -1,25 +1,16 @@
-import sys
+n, _k = map(int, input().split())
+num = list(input())
+k = _k
+stack = []
 
-input = sys.stdin.readline
+for i in range(n):
+  while (k > 0 and stack and stack[-1] < num[i]):
+    ## 만약 스택의 숫자가 지금 숫자보다 작다면
+    ## 스택 안에 있는 숫자들을 모두 지워주고
+    ## k를 그만큼 감소시킨다. 
+    stack.pop()
+    k -= 1
+  stack.append(num[i])
 
-n, k = map(int, input().strip().split())
-numbers = list(map(int, list(input().strip())))
+print(''.join(stack[:n - _k]))
 
-final_number = [0] * (n - k)
-next_start = 0
-
-for idx in range(n - k):
-  ## 현재 칸에 들어갈 수 있는 숫자들
-  # print("***")
-  current = numbers[next_start:(k + idx + 1)]
-  # print(current)
-
-  ## 그 중 가장 큰 숫자를 넣어주기
-  final_number[idx] = max(current)
-  # print(final_number)
-
-  ## 넣어준 숫자 이후로 current를 설정하기
-  next_start = current.index(final_number[idx]) + next_start + 1
-  # print(next_start)
-
-print(''.join([str(i) for i in final_number]))
