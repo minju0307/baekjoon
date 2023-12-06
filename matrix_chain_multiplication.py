@@ -1,5 +1,6 @@
 import sys
 
+
 def computation(m1, m2):
   ## computation이 가능한지 확인해야 함
   ## 안 되면 error 출력
