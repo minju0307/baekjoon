@@ -1,20 +1,19 @@
 def solution(numbers):
   i = 0
   numbers = list(map(str, numbers))
-
-  # numbers = sorted(numbers, reverse=True)
+  numbers = sorted(numbers)
   # print(numbers)
 
   def function(x):
-    if i < len(x):
-      return x[i]
-    else:
-      return x[-1]
+      if i < len(x):
+          return x[i]
+      else:
+          return x[-1]
 
-  for i in range(4):
-    numbers = sorted(numbers, key=function, reverse=True)
-    print(numbers)
-    i += 1
+  for k in range(4):  
+      numbers = sorted(numbers, key=function, reverse=True)
+      print(numbers)
+      i += 1
 
   answer = ''.join(numbers)
   return str(int(answer))
