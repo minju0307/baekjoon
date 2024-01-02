@@ -5,9 +5,9 @@ def solution(numbers):
     if len(x) == 4:
       return (x[0], x[1], x[2], x[3])
     elif len(x) == 3:
-      return (x[0], x[1], x[2], x[2])
+      return (x[0], x[1], x[2], x[0])
     elif len(x) == 2:
-      return (x[0], x[1], x[1], x[1])
+      return (x[0], x[1], x[0], x[1])
     elif len(x) == 1:
       return (x[0], x[0], x[0], x[0])
 
@@ -15,6 +15,7 @@ def solution(numbers):
   # print(numbers)
 
   answer = ''.join(numbers)
+  return str(int(answer))
   return str(int(answer))
 
 
