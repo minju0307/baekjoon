@@ -1,15 +1,11 @@
-from collections import deque
-
-
 def solution(arr):
   answer = []
-  dq = deque()
-  dq.append(arr[0])
+  answer.append(arr[0])
 
   for i in range(1, len(arr)):
-    current = dq[-1]
+    current = answer[-1] 
     if current != arr[i]:
-      dq.append(arr[i])
+        answer.append(arr[i])
 
   return answer
 
