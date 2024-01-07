@@ -18,22 +18,18 @@ for _ in range(e):
   a, b, c = map(int, input().split())
   graph[a][b] = c
 
-## 플루이드 워셜 알고리즘 수행 
+## 플루이드 워셜 알고리즘 수행 & 사이클 찾기
+min_cycle = INF
 for k in range(1, v + 1):
   for a in range(1, v + 1):
     for b in range(1, v + 1):
+      if a == b:
+        continue
       graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+      min_cycle = min(min_cycle, graph[a][b] + graph[b][a])
 
 # for line in graph:
 #   print(line)
-
-## 사이클 찾기
-min_cycle = INF
-for a in range(1, v + 1):
-  for b in range(1, v + 1):
-    if a == b:
-      continue
-    min_cycle = min(min_cycle, graph[a][b] + graph[b][a])
 
 ## 답변 출력하기
 if min_cycle == INF:
