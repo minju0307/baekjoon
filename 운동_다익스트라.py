@@ -2,7 +2,7 @@ import sys
 import heapq
 
 input = sys.stdin.readline
-INF = sys.maxsize
+INF = 10001
 
 v, e = map(int, input().split())
 graph = [[] for _ in range(v+1)]
@@ -17,20 +17,18 @@ for _ in range(e):
     heapq.heappush(heap, [c, a, b])
 
 while heap:
-    dist, first, last = heapq.heappop(heap)
-    if first == last:
+    dist, start, end = heapq.heappop(heap)
+    if start == end:
         print(dist)
         break
 
-    if distance[first][last] < dist:
+    if distance[start][end] < dist:
         continue
 
-    for i, j in graph[last]:
-        # first -> last -> j
-        n_distance = i + dist
-        # (first->last->j vs first -> j) if more cheap, change n_distance
-        if distance[first][j] > n_distance:
-            distance[first][j] = n_distance
-            heapq.heappush(heap, [distance[first][j], first, j])
+    for cost, new_end in graph[end]:
+        n_distance = cost + dist
+        if distance[start][new_end] > n_distance:
+            distance[start][new_end] = n_distance
+            heapq.heappush(heap, [distance[start][new_end], start, new_end])
 else:
   print(-1)
