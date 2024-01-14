@@ -2,10 +2,10 @@
 def solution(n, lost, reserve):
     answer = 0
     
-    ## 빌려줄 수 있는 학생과 받아야 하는 학생 정리 
+    ## 겹치는 학생 정리  
     both = list(set(lost).intersection(set(reserve)))
-    lost = [i for i in lost if i not in both ]
-    reserve = [i for i in reserve if i not in both ]
+    lost = sorted([i for i in lost if i not in both ])
+    reserve = sorted([i for i in reserve if i not in both])
     
     answer = n - len(lost)
     
