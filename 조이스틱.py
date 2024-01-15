@@ -1,4 +1,5 @@
 ## 정답 코드 참고: https://velog.io/@jqdjhy/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%A1%B0%EC%9D%B4%EC%8A%A4%ED%8B%B1-Greedy
+## 그리디로 그때그때 짧게 갈 경우 틀리게 해석되는 경우가 있음. 전체적인 상황을 고려하여 어떻게 가는게 최소 이동인지 구하는 것이 핵심
 
 def solution(name):
     answer = 0
