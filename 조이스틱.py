@@ -1,3 +1,6 @@
+## 그리디로 풀었는데 답이 안 나옴 
+## 완전 탐색으로 풀어야 함 
+
 
 def get_min_updown(letter):
     if ord(letter)-ord("A") <= 13:
