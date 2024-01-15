@@ -1,53 +1,34 @@
-## 그리디로 풀었는데 답이 안 나옴 
-## 완전 탐색으로 풀어야 함 
-
-
-def get_min_updown(letter):
-    if ord(letter)-ord("A") <= 13:
-        return ord(letter)-ord("A")
-    else:
-        return abs(ord("Z")-ord(letter)+1)
+## 정답 코드 참고: https://velog.io/@jqdjhy/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%A1%B0%EC%9D%B4%EC%8A%A4%ED%8B%B1-Greedy
 
 def solution(name):
     answer = 0
-    visited = [0 if i != "A" else -1 for i in name]
-    letter_idx = 0
+    min_move = len(name) - 1 ## 최대 이동 횟수로 초기화 
     
-    while 0 in visited:
-        answer += get_min_updown(name[letter_idx])
-        visited[letter_idx] = 1
-        # print(visited)
+    for i, char in enumerate(name):
+        ## 최소 알파벳 변경 횟수 (위아래)
+        answer += min(ord(char) - ord('A'), ord('Z') - ord(char) + 1)
         
-        if 0 in visited:
-            ## 오른쪽으로 가서 0을 찾기 
-            right_idx = letter_idx
-            right_count = 0
-            while visited[right_idx] != 0:
-                right_idx += 1
-                if right_idx > len(name)-1:
-                    right_idx = 0
-                right_count += 1
-            
-            ## 왼쪽으로 가서 0을 찾기
-            left_idx = letter_idx
-            left_count = 0
-            while visited[left_idx] != 0:
-                left_idx -= 1
-                if left_idx == -1:
-                    left_idx = len(name)-1
-                left_count += 1
-            
-            if right_count < left_count:
-                # print("right: ", right_idx)
-                answer += right_count
-                letter_idx = right_idx
-            else:
-                # print("left: ", left_idx)
-                answer += left_count
-                letter_idx = left_idx
-            
+        ## 다음 문자열에 A가 오래 있는 경우 
+        ## 제일 긴 문자열의 개수를 찾아야 함 
+        next = i + 1
+        while next < len(name) and name[next] == 'A':
+            next += 1
+        
+        ## 최소 이동 횟수 구하기 -> 여기서는 현재 위치와는 상관 없이 전체 이동 횟수를 구함 
+        
+        # print(char)
+        # print(min_move)
+        # print(2*i + len(name) - next)
+        # print(i + 2*(len(name) -next))
+        # print()
+        
+        ## 2*i + len(name) - next : 연속된 A의 왼쪽으로 커서를 옮긴 다음에, 왼쪽 방향으로 쭉 훑는 경우 (연속된 A의 왼쪽이 짧을 경우 효과적)
+        ## 2*(len(name) -next : 연속된 A의 오른쪽으로 커서를 옮긴 다음에, 오른쪽 방향으로 쭉 훑는 경우 (연속된 A의 오른쪽이 짧을 경우 효과적)
+        min_move = min([min_move, 2*i + len(name) - next, i + 2*(len(name) -next)])
+        
+    answer += min_move
     return answer
 
 if __name__ =="__main__":
-    name="JAN"
+    name="NOTBAAAAD"
     print(solution(name))
