@@ -2,28 +2,28 @@ from collections import deque
 
 def solution(priorities, location):
     
-    queue = deque(priorities)
+    max_num_list = deque(sorted(priorities, reverse=True))
+    queue = deque([(p, i) for i, p in enumerate(priorities)])
+    answer = 0 ## 실행 횟수 
     
-    answer = 0
-    idx = 0
-    n = len(priorities)
+    print(queue)
     
     while queue:
-        max_num = max(queue)
-        current = queue.popleft()
-        print("idx:", idx)
-        print("current:", current)
+        max_num = max_num_list.popleft()
+        current_value, current_idx = queue.popleft()
+        
+        print("idx:", current_idx)
+        print("current:", current_value)
         print("max:", max_num)
         print()
-        if current == max_num:
+        
+        if current_value == max_num:
             answer += 1
-            if idx == location:
+            if current_idx == location:
                 return answer
-            idx = (idx+1) % n
-            continue
         else:
-            queue.append(current)
-            idx = (idx+1) % n
+            max_num_list.appendleft(max_num)
+            queue.append((current_value, current_idx))
         
 if __name__ == '__main__':
     print(solution([1, 1, 9, 1, 1, 1], 0))
