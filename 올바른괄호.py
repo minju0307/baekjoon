@@ -11,4 +11,3 @@ def solution(s):
         stack.append(char)
 
     return not(stack)
-
