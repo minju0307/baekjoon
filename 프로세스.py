@@ -1,20 +1,29 @@
-import heapq
+from collections import deque
 
 def solution(priorities, location):
     
-    ## 우선순위 큐를 힙으로 구현 
-    hq = []
+    queue = deque(priorities)
     
-    ## heapq에 push (linear time)
-    for idx, value in enumerate(priorities):
-        heapq.heappush(hq, (-value, idx))
+    answer = 0
+    idx = 0
+    n = len(priorities)
     
-    ## heapq pop
-    answer = 1
-    while heapq:
-        v, i = heapq.heappop(hq)
-        if i == location:
-            return answer
-        answer += 1
+    while queue:
+        max_num = max(queue)
+        current = queue.popleft()
+        print("idx:", idx)
+        print("current:", current)
+        print("max:", max_num)
+        print()
+        if current == max_num:
+            answer += 1
+            if idx == location:
+                return answer
+            idx = (idx+1) % n
+            continue
+        else:
+            queue.append(current)
+            idx = (idx+1) % n
         
-    return answer
+if __name__ == '__main__':
+    print(solution([1, 1, 9, 1, 1, 1], 0))
