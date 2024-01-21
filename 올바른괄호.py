@@ -6,11 +6,9 @@ def solution(s):
             c = stack.pop()
             if ( char == ')' and c == '(' ) :
                 continue
+            else:
+                stack.append(c)
         stack.append(char)
-    
-    if not stack:
-        answer = True
-    else:
-        answer = False
 
-    return answer
+    return not(stack)
+
