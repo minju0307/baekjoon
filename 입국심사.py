@@ -9,9 +9,11 @@ def solution(n, times):
     right = max(times)*n ## 입국 심사에서 걸리는 최대의 시간 
     
     while left <= right :
-        
+        # print()
+        # print("***")
         ## 중간값을 임의로 잡는다고 할 때 
         mid = (right+left) // 2
+        # print("mid: ", mid)
         
         ## 현재 시간 안에서 심사를 받을 수 있는 인원
         people = 0 ## 심사 받은 사람의  수 
@@ -20,14 +22,12 @@ def solution(n, times):
             ## 심사 받은 사람의 수가 n 명보다 크다면 break
             if people >= n :
                 break 
+        # print("people: ", people)
         
-        ## 심사 받은 인원이 n명과 일치하면, 현재가 최적의 값이기 때문에 반환하기 
-        if people == n:
+        ## 심사 받은 인원이 n명보다 같거나 크면, 시간이 충분하다는 의미이므로 더 작은 시간이 가능한지 확인해보기
+        ## 현재 값이 최적일 수 있으므로 answer = mid로 넣어주기 
+        if people >= n:
             answer = mid 
-            break
-        
-        ## 심사 받은 인원이 n명보다 크면, 시간이 충분하다는 의미이므로 더 작은 시간이 가능한지 확인해보기 
-        elif people > n:
             right = mid - 1
         
         ## 심사 받은 인원이 n명보다 작다면, 시간이 부족하다는 의미이므로 더 많은 시간이 필요한지 확인해보기
@@ -37,4 +37,4 @@ def solution(n, times):
     return answer
 
 if __name__ == '__main__':
-    print(solution(6, [7,10]))
+    print(solution(6, [2, 5]))
