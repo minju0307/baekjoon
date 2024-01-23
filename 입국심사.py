@@ -4,28 +4,26 @@ def solution(n, times):
     
     ## 이분 탐색의 범위가 시간 리스트
     ## 최솟값은 1분, 최댓값은 가장 오래 걸리는 심사위원에게 n명이 모두 심사받는 시간 
-    ## 우리는 이 리스트를 탐색하면서 최적의 시간을 확인할 것 
-    time_list = [i for i in range(1, max(times)*n+1)]
-    left = 0 ## 최솟값의 인덱스 
-    right = len(time_list) - 1 ## 최댓값의 인덱스 
+
+    left = 1 ## 입국 심사에서 걸리는 최소의 시간 
+    right = max(times)*n ## 입국 심사에서 걸리는 최대의 시간 
     
     while left <= right :
         
-        ## 시간 리스트 중 중간 값을 임의로 잡자
+        ## 중간값을 임의로 잡는다고 할 때 
         mid = (right+left) // 2
-        current_time = time_list[mid]
         
         ## 현재 시간 안에서 심사를 받을 수 있는 인원
         people = 0 ## 심사 받은 사람의  수 
         for time in times:
-            people += current_time // time 
+            people += mid // time 
             ## 심사 받은 사람의 수가 n 명보다 크다면 break
             if people >= n :
                 break 
         
         ## 심사 받은 인원이 n명과 일치하면, 현재가 최적의 값이기 때문에 반환하기 
         if people == n:
-            answer = current_time 
+            answer = mid 
             break
         
         ## 심사 받은 인원이 n명보다 크면, 시간이 충분하다는 의미이므로 더 작은 시간이 가능한지 확인해보기 
