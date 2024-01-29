@@ -17,7 +17,7 @@ def solution(begin, target, words):
         # print(queue)
         current = queue.popleft()
         
-        if current == target:
+        if current[0] == target:
             break
         
         for w_idx, w in enumerate(words):
