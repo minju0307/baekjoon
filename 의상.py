@@ -1,25 +1,16 @@
 from collections import defaultdict
-from itertools import combinations
 
 def solution(clothes):
-    
+    answer = 1
     dic = defaultdict(int)
     for _, t in clothes:
         dic[t] += 1
-        
-    answer = sum(list(dic.values()))
-    types = list(dic.keys())
+    values = list(dic.values())
     
-    for i in range(2, len(types)+1):
-        comb = combinations(types, i) 
-
-        for tup in list(comb):
-            tmp = 1
-            for sub in tup:
-                tmp *= dic[sub]
-            answer += tmp 
+    for v in values:
+        answer *= (v+1) 
             
-    return answer
+    return answer-1
 
 if __name__=='__main__':
-    solution([["yellow_hat", "headgear"], ["blue_sunglasses", "eyewear"], ["green_turban", "headgear"]])
+    print(solution([["crow_mask", "face"], ["blue_sunglasses", "face"], ["smoky_makeup", "face"]]))
