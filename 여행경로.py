@@ -1,46 +1,42 @@
-from collections import deque
+
+def dfs(d, a, idx, visited, tickets, answer):
+    print("***")
+    print(tickets[idx])
+    
+    if all(visited):
+        answer.append(a)
+        if (len(answer) == len(tickets)+1):
+            return answer
+        else:
+            return False
+    
+    for new_idx, (new_d, new_a) in enumerate(tickets):
+        if visited[new_idx] == 1: continue
+        if a == new_d:
+            print(">>>")
+            print(tickets[new_idx])
+            print()
+            answer.append(new_d)
+            visited[new_idx]=1
+            return dfs(new_d, new_a, new_idx, visited, tickets, answer)
+            
 
 def solution(tickets):
-    answer = []
-    visited = [0] * len(tickets) ## 항공권을 사용했는지 확인 
-    
-    queue = deque()
-    can = []
-    for idx, (d, a) in enumerate(tickets): ## 시작 지점 선택
+    start_can = []
+    ans = []
+    for idx, (d, a) in enumerate(tickets): ## 시작 지점 후보 선택
         if d == "ICN":
-            can.append(([d,a], idx))
-    can = sorted(can) ## 알파벳이 빠른 순서로 정렬 
-    queue.append(can[0][0])
-    visited[can[0][1]] = 1
-    answer.append("ICN")
-
+            start_can.append((a, idx))
     
-    while queue:
-        # print()
-        # print(queue)
-        
-        c_d, c_a = queue.popleft()
-        answer.append(c_a)
-        
-        
-        # if all(visited):
-        #     break
-        
-        can = []
-        for idx, (d, a) in enumerate(tickets):
-            if visited[idx] == 1: continue ## 사용한 여행 경로는 다시 갈 수 없음 
-            if c_a == d:
-                can.append(([d, a], idx))
-                
-        
-        ## 가능한 경로가 2개 이상일 경우 알파벳 순서대로 방문
-        if can:
-            can = sorted(can)
-            queue.append(can[0][0])
-            visited[can[0][1]] = 1
-        
-        
-    return answer
+    for _, idx in sorted(start_can): ## 시작 지점 후보들에 대하여 
+        answer = []
+        visited = [0] * len(tickets) ## 항공권을 사용했는지 확인 
+        answer.append("ICN")
+        visited[idx] = 1
+        answer = dfs(tickets[idx][0], tickets[idx][1], idx, visited, tickets, answer)
+        if answer:
+            return answer
+
 
 if __name__=="__main__":
     print(solution([["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]]))
