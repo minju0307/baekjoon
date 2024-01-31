@@ -1,42 +1,36 @@
 
 def dfs(d, a, idx, visited, tickets, answer):
-    print("***")
-    print(tickets[idx])
     
-    if all(visited):
+    ## 종료 조건 
+    if 0 not in visited:
         answer.append(a)
-        if (len(answer) == len(tickets)+1):
-            return answer
-        else:
-            return False
+        if (len(answer) == len(tickets)+1): ## 모든 티켓이 사용되었고, 모든 공항을 방문했다면 
+            ans.append(answer)
+            return
     
-    for new_idx, (new_d, new_a) in enumerate(tickets):
+    ## 다음 지점 후보 선택
+    for new_idx, (new_d, new_a) in enumerate(tickets): 
         if visited[new_idx] == 1: continue
         if a == new_d:
-            print(">>>")
-            print(tickets[new_idx])
-            print()
             answer.append(new_d)
             visited[new_idx]=1
-            return dfs(new_d, new_a, new_idx, visited, tickets, answer)
-            
+            dfs(new_d, new_a, new_idx, visited, tickets, answer)
+            visited[new_idx]=0
+            answer=answer[:-1]
 
 def solution(tickets):
-    start_can = []
+    global ans
+    
     ans = []
     for idx, (d, a) in enumerate(tickets): ## 시작 지점 후보 선택
         if d == "ICN":
-            start_can.append((a, idx))
-    
-    for _, idx in sorted(start_can): ## 시작 지점 후보들에 대하여 
-        answer = []
-        visited = [0] * len(tickets) ## 항공권을 사용했는지 확인 
-        answer.append("ICN")
-        visited[idx] = 1
-        answer = dfs(tickets[idx][0], tickets[idx][1], idx, visited, tickets, answer)
-        if answer:
-            return answer
-
+            answer = []
+            answer.append("ICN")
+            visited = [0] * len(tickets) ## 항공권을 사용했는지 확인
+            visited[idx] = 1
+            dfs(tickets[idx][0], tickets[idx][1], idx, visited, tickets, answer)
+            visited[idx]=0
+    return min(ans)
 
 if __name__=="__main__":
     print(solution([["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]]))
